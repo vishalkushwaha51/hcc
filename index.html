@@ -535,6 +535,14 @@
       const mobileMenu = document.getElementById("mobile-menu");
       mobileMenu.classList.toggle("hidden");
     });
+    // Close mobile menu when a menu item is clicked
+const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+mobileMenuLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenu.classList.add('hidden');
+  });
+});
 
     // Close modal on Esc key
     document.addEventListener("keydown", (event) => {
