@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hostel Cricket Council (HCC) - Uniting cricket enthusiasts in our hostel for epic matches and unforgettable moments.">
+  <meta name="keywords" content="Hostel Cricket Council, HCC, cricket, hostel sports, cricket matches">
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="HCC - Hostel Cricket Council">
+  <meta property="og:description" content="Join the Hostel Cricket Council for epic cricket matches and unforgettable moments!">
+  <meta property="og:image" content="images/hcc-logo.png">
+  <meta property="og:url" content="https://hcc.example.com">
+  <meta property="og:type" content="website">
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HCC - Hostel Cricket Council">
+  <meta name="twitter:description" content="Join the Hostel Cricket Council for epic cricket matches and unforgettable moments!">
+  <meta name="twitter:image" content="images/hcc-logo.png">
+  <title>HCC - Hostel Cricket Council</title>
+  <link rel="icon" href="images/Screenshot 2025-06-01 151356.png" type="image/png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #16a34a;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 50;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      max-width: 90%;
+      width: 400px;
+      position: relative;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      cursor: pointer;
+    }
+    /* Fade-in animation for sections */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    /* Gallery image container */
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+    .gallery-item:hover {
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+    .gallery-image {
+      width: 100%;
+      max-height: 16rem; /* Equivalent to h-64 for consistency */
+      object-fit: contain; /* Ensures entire image is visible without cropping */
+      display: block;
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) {
+      .gallery-image {
+        max-height: 12rem; /* Equivalent to h-48 for smaller screens */
+      }
+    }
+    /* Performance note: Optimize images (use WebP, compress) in the 'images/' folder to reduce load times. */
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <!-- Navbar -->
+  <nav class="bg-green-600 text-white p-4 sticky top-0 z-20 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <img src="images/Screenshot 2025-06-01 151356.png" alt="HCC Logo" class="h-10 w-10 object-cover">
+        <h1 class="text-xl sm:text-2xl font-bold">HCC - Hostel Cricket Council</h1>
+      </div>
+      <div class="hidden md:flex space-x-4">
+        <a href="#home" class="hover:underline text-sm sm:text-base" aria-label="Home">Home</a>
+        <a href="#about" class="hover:underline text-sm sm:text-base" aria-label="About HCC">About</a>
+        <a href="#teams" class="hover:underline text-sm sm:text-base" aria-label="Teams">Teams</a>
+        <a href="#news" class="hover:underline text-sm sm:text-base" aria-label="News">News</a>
+        <a href="#join" class="hover:underline text-sm sm:text-base" aria-label="Join HCC">Join HCC</a>
+        <a href="#schedule" class="hover:underline text-sm sm:text-base" aria-label="Match Schedule">Schedule</a>
+        <a href="#leaderboard" class="hover:underline text-sm sm:text-base" aria-label="Leaderboard">Leaderboard</a>
+        <a href="#gallery" class="hover:underline text-sm sm:text-base" aria-label="Gallery">Gallery</a>
+      </div>
+      <!-- Hamburger Menu for Mobile -->
+      <button id="menu-toggle" class="md:hidden text-white focus:outline-none" aria-label="Toggle navigation menu">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-green-600 text-white p-4">
+      <a href="#home" class="block py-2 hover:underline" aria-label="Home">Home</a>
+      <a href="#about" class="block py-2 hover:underline" aria-label="About HCC">About</a>
+      <a href="#teams" class="block py-2 hover:underline" aria-label="Teams">Teams</a>
+      <a href="#news" class="block py-2 hover:underline" aria-label="News">News</a>
+      <a href="#join" class="block py-2 hover:underline" aria-label="Join HCC">Join HCC</a>
+      <a href="#schedule" class="block py-2 hover:underline" aria-label="Match Schedule">Schedule</a>
+      <a href="#leaderboard" class="block py-2 hover:underline" aria-label="Leaderboard">Leaderboard</a>
+      <a href="#gallery" class="block py-2 hover:underline" aria-label="Gallery">Gallery</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="bg-cover bg-center h-[300px] sm:h-[400px] lg:h-[500px] flex items-center justify-center relative animate-fade-in" style="background-image: url('images/2244871.jpg')">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <div class="text-center text-white z-10 px-4">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">Welcome to HCC!</h2>
+      <p class="text-lg sm:text-xl lg:text-2xl mb-6">Smash Hard, Love Soft!</p>
+      <div class="mb-6">
+        <p id="quote" class="text-sm sm:text-base lg:text-lg italic">"Cricket is life!"</p>
+        <button onclick="generateQuote()" class="mt-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition text-sm sm:text-base">New Quote</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-8 sm:py-12 animate-fade-in">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">About HCC</h2>
+      <p class="text-base sm:text-lg mb-4 max-w-2xl mx-auto">Hostel Cricket Council (HCC) is the heartbeat of cricket in our hostel, uniting players and fans for epic matches and unforgettable moments.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8">
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="images/WhatsApp Image 2025-06-01 at 15.18.05_bfe71694.jpg" alt="Chairman Saurav" class="h-20 w-20 sm:h-24 sm:w-24 mx-auto rounded-full mb-2 object-cover">
+          <h3 class="text-lg sm:text-xl font-semibold">Chairman</h3>
+          <p>Saurav</p>
+          <p class="text-gray-600 text-sm sm:text-base">Leading HCC with strategy and swag.</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="images/VC.jpg" alt="Vice-Chairman Alok" class="h-20 w-20 sm:h-24 sm:w-24 mx-auto rounded-full mb-2 object-cover">
+          <h3 class="text-lg sm:text-xl font-semibold">Vice-Chairman</h3>
+          <p>Alok</p>
+          <p class="text-gray-600 text-sm sm:text-base">Hitting boundaries, on and off the field.</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <img src="images/SECRETERY.jpg" alt="Secretary Ayush" class="h-20 w-20 sm:h-24 sm:w-24 mx-auto rounded-full mb-2 object-cover">
+          <h3 class="text-lg sm:text-xl font-semibold">Secretary</h3>
+          <p>Ayush</p>
+          <p class="text-gray-600 text-sm sm:text-base">Spinning plans for HCC glory.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Teams Section -->
+  <section id="teams" class="bg-gray-200 py-8 sm:py-12 animate-fade-in">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Our Teams</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <div class="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-2xl font-semibold mb-4">Team Alpha</h3>
+          <ul class="text-left text-sm sm:text-base">
+            <li><a href="#" onclick="showPlayerStats('VISHAL')" class="hover:underline" aria-label="View VISHAL stats">VISHAL "Blaster"</a> - Batsman</li>
+            <li><a href="#" onclick="showPlayerStats('ALOK')" class="hover:underline" aria-label="View ALOK stats">ALOK "Rocket"</a> - Bowler</li>
+            <li><a href="#" onclick="showPlayerStats('RAMKRISHNA')" class="hover:underline" aria-label="View RAMKRISHNA stats">RAMKRISHNA "All-Rounder"</a> - All-Rounder</li>
+            <li><a href="#" onclick="showPlayerStats('RISHABH')" class="hover:underline" aria-label="View RISHABH stats">RISHABH "Smasher"</a> - Batsman</li>
+          </ul>
+        </div>
+        <div class="bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-2xl font-semibold mb-4">Team Beta</h3>
+          <ul class="text-left text-sm sm:text-base">
+            <li><a href="#" onclick="showPlayerStats('SAURAV')" class="hover:underline" aria-label="View SAURAV stats">SAURAV "Thunder"</a> - Batsman</li>
+            <li><a href="#" onclick="showPlayerStats('IMRAN')" class="hover:underline" aria-label="View IMRAN stats">IMRAN "Captain Cool"</a> - All-Rounder</li>
+            <li><a href="#" onclick="showPlayerStats('SABIR')" class="hover:underline" aria-label="View SABIR stats">SABIR "Spinner"</a> - Bowler</li>
+            <li><a href="#" onclick="showPlayerStats('AYUSH')" class="hover:underline" aria-label="View AYUSH stats">AYUSH "Striker"</a> - Batsman</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Player Stats Modal -->
+  <div id="player-modal" class="modal" role="dialog" aria-label="player-modal-title">
+    <div class="modal-content">
+      <span class="modal-close text-gray-600 text-xl" onclick="closeModal()" aria-label="Close modal">×</span>
+      <h3 id="player-modal-title" class="text-lg sm:text-xl font-semibold mb-4">Player Stats</h3>
+      <div id="player-stats" class="text-center"></div>
+    </div>
+  </div>
+
+  <!-- News Section -->
+  <section id="news" class="py-8 sm:py-12 animate-fade-in">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">HCC News</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-xl font-semibold mb-2">Alpha's Epic Win</h3>
+          <p class="text-sm sm:text-base">June 10, 2025: Team Alpha defeated Beta by 20 runs in a thrilling match!</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-xl font-semibold mb-2">Player of the Month</h3>
+          <p class="text-sm sm:text-base">June 2025: Rohit named Player of the Month for his stunning century!</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-xl font-semibold mb-2">Upcoming Trials</h3>
+          <p class="text-sm sm:text-base">Join HCC trials on June 25, 2025, to showcase your skills!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join HCC Section -->
+  <section id="join" class="bg-gray-200 py-8 sm:py-12 animate-fade-in" style="background-image: url(images/WhatsApp\ Image\ 2025-05-30\ at\ 16.30.07_390473ea.jpg);">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Join HCC</h2>
+      <p class="text-base sm:text-lg mb-4 max-w-2xl mx-auto">Want to be a part of HCC? Pay ₹99 and showcase your skills to join Team Alpha or Team Beta!</p>
+      <p class="text-sm sm:text-md mb-6 max-w-2xl mx-auto">After submitting your application and payment, our committee will evaluate your skills during trials. Selected players will be assigned to a team based on team needs and your performance.</p>
+      <div class="max-w-md mx-auto bg-white p-4 sm:p-6 rounded-lg shadow hover:shadow-lg transition">
+        <form id="join-form" action="https://formspree.io/f/mwpbpvpp" method="POST">
+          <div class="mb-4">
+            <label class="block text-left text-gray-700 text-sm sm:text-base" for="name">Name</label>
+            <input type="text" id="name" name="name" class="w-full p-2 border rounded text-sm sm:text-base" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-left text-gray-700 text-sm sm:text-base" for="email">Email</label>
+            <input type="email" id="email" name="email" class="w-full p-2 border rounded text-sm sm:text-base" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-left text-gray-700 text-sm sm:text-base" for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" class="w-full p-2 border rounded text-sm sm:text-base" required>
+          </div>
+          <div class="mb-4">
+            <label class="block text-left text-gray-700 text-sm sm:text-base" for="role">Preferred Role</label>
+            <select id="role" name="role" class="w-full p-2 border rounded text-sm sm:text-base" required>
+              <option value="Batsman">Batsman</option>
+              <option value="Bowler">Bowler</option>
+              <option value="All-Rounder">All-Rounder</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="block text-left text-gray-700 text-sm sm:text-base" for="message">Why do you want to join HCC?</label>
+            <textarea id="message" name="message" class="w-full p-2 border rounded text-sm sm:text-base" rows="4"></textarea>
+          </div>
+          <p class="text-xs sm:text-sm text-gray-600 mb-4">Note: A membership fee of ₹99 is required. Payment details will be shared after form submission.</p>
+          <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition text-sm sm:text-base">Submit Application</button>
+          <div id="spinner" class="spinner mt-4"></div>
+        </form>
+        <p id="form-message" class="mt-4 text-green-600 hidden text-sm sm:text-base">Application submitted successfully!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Match Schedule Section -->
+  <section id="schedule" class="py-8 sm:py-12 animate-fade-in">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Upcoming Matches</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-xl font-semibold">Alpha vs Beta</h3>
+          <p class="text-sm sm:text-base">Date: June 10, 2025</p>
+          <p class="text-sm sm:text-base">Time: 4:00 PM</p>
+          <p class="text-sm sm:text-base">Venue: Hostel Ground</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-xl font-semibold">Beta vs Alpha</h3>
+          <p class="text-sm sm:text-base">Date: June 15, 2025</p>
+          <p class="text-sm sm:text-base">Time: 5:00 PM</p>
+          <p class="text-sm sm:text-base">Venue: Hostel Ground</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
+          <h3 class="text-lg sm:text-xl font-semibold">TBD</h3>
+          <p class="text-sm sm:text-base">Date: June 20, 2025</p>
+          <p class="text-sm sm:text-base">Time: 4:30</p>
+          <p class="text-sm sm:text-base">Venue: Hostel Ground</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboard Section -->
+  <section id="leaderboard" class="bg-gray-200 py-8 sm:py-12 animate-fade-in">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Leaderboard</h2>
+      <div class="mb-6">
+        <label for="period-select" class="text-sm sm:text-base mr-2">Select Period:</label>
+        <select id="period-select" class="p-2 border rounded text-sm sm:text-base" onchange="displayLeaderboard()">
+          <option value="May 2025">May 2025</option>
+          <option value="June 2025" selected>June 2025</option>
+        </select>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+        <!-- Top Runs -->
+        <div>
+          <h3 class="text-lg sm:text-xl font-semibold mb-4">Top 3 Run Scorers</h3>
+          <table class="w-full max-w-md mx-auto bg-white rounded-lg shadow text-sm sm:text-base">
+            <thead>
+              <tr class="bg-green-600 text-white">
+                <th class="p-2 sm:p-3">Player</th>
+                <th class="p-2 sm:p-3">Team</th>
+                <th class="p-2 sm:p-3">Runs</th>
+              </tr>
+            </thead>
+            <tbody id="top-runs-table"></tbody>
+          </table>
+        </div>
+        <!-- Top Wickets -->
+        <div>
+          <h3 class="text-lg sm:text-xl font-semibold mb-4">Top 3 Wicket Takers</h3>
+          <table class="w-full max-w-md mx-auto bg-white rounded-lg shadow text-sm sm:text-base">
+            <thead>
+              <tr class="bg-green-600 text-white">
+                <th class="p-2 sm:p-3">Player</th>
+                <th class="p-2 sm:p-3">Team</th>
+                <th class="p-2 sm:p-3">Wickets</th>
+              </tr>
+            </thead>
+            <tbody id="top-wickets-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="py-8 sm:py-12 animate-fade-in">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-2xl sm:text-3xl font-bold mb-6">Match Gallery</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="gallery-item">
+          <img src="images/RAM.jpg" alt="Ram receiving Man of the Series award" class="gallery-image">
+          <p class="text-sm sm:text-base mt-2 text-gray-700">Ram has been awarded the Man of the Series in the 5-match series played today. He gave his 100% in every match. Congratulations to Ram on this great achievement.<br>HCC.</p>
+        </div>
+        <div class="gallery-item">
+          <img src="images/ALOK.jpg" alt="Alok receiving Player of the Series award" class="gallery-image">
+          <p class="text-sm sm:text-base mt-2 text-gray-700">In the 5-match series held today, Alok delivered an impressive all-round performance. He scored 14 runs with the bat and took 10 wickets with the ball. Owing to his outstanding contribution in both departments, he was awarded the Player of the Series, sponsored by JioMart.<br>HCC.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-green-600 text-white p-4 text-center">
+    <div class="flex justify-center items-center space-x-2 mb-2">
+      <img src="images/Screenshot 2025-06-01 151356.png" alt="HCC Logo" class="h-8 w-8 object-cover">
+      <p class="text-sm sm:text-base">© 2025 HCC - Hostel Cricket Council. All rights reserved.</p>
+    </div>
+    <div class="flex justify-center space-x-4 mb-2">
+      <a href="https://twitter.com/hcc_cricket" target="_blank" class="hover:text-gray-200" aria-label="Follow HCC on Twitter">
+        <i class="fab fa-twitter fa-lg"></i>
+      </a>
+      <a href="https://instagram.com/hcc_cricket" target="_blank" class="hover:text-gray-200" aria-label="Follow HCC on Instagram">
+        <i class="fab fa-instagram fa-lg"></i>
+      </a>
+      <a href="mailto:contact@hcc.com" class="hover:text-gray-200" aria-label="Email HCC">
+        <i class="fas fa-envelope fa-lg"></i>
+      </a>
+    </div>
+    <p class="text-xs sm:text-sm text-gray-200">Website created by Vishal Kushwaha</p>
+  </footer>
+
+  <script>
+    // Player data for Teams section
+    const playerData = {
+      VISHAL: { name: "VISHAL 'Blaster'", team: "Alpha", role: "Batsman", matches: 10, runs: 150, wickets: 2, image: "images/vishal.png" },
+      ALOK: { name: "ALOK 'Rocket'", team: "Alpha", role: "Bowler", matches: 8, runs: 50, wickets: 10, image: "images/VC.jpg" },
+      RAMKRISHNA: { name: "RAMKRISHNA 'All-Rounder'", team: "Alpha", role: "All-Rounder", matches: 9, runs: 80, wickets: 5, image: "images/ramkrishna.jpg" },
+      RISHABH: { name: "RISHABH 'Smasher'", team: "Alpha", role: "Batsman", matches: 11, runs: 120, wickets: 0, image: "images/rishabh.jpg" },
+      SAURAV: { name: "SAURAV 'Thunder'", team: "Beta", role: "Batsman", matches: 7, runs: 100, wickets: 0, image: "images/saurav.jpg" },
+      IMRAN: { name: "IMRAN 'Captain Cool'", team: "Beta", role: "All-Rounder", matches: 10, runs: 90, wickets: 6, image: "images/imran.jpg" },
+      SABIR: { name: "SABIR 'Spinner'", team: "Beta", role: "Bowler", matches: 8, runs: 20, wickets: 8, image: "images/sabir.jpg" },
+      AYUSH: { name: "AYUSH 'Striker'", team: "Beta", role: "Batsman", matches: 9, runs: 110, wickets: 1, image: "images/SECRETERY.jpg" }
+    };
+
+    // Leaderboard data for multiple periods
+    const leaderboardPeriods = {
+      "May 2025": [
+        { player: "VISHAL", team: "Alpha", runs: 120, wickets: 1 },
+        { player: "SAURAV", team: "Beta", runs: 100, wickets: 0 },
+        { player: "ALOK", team: "Alpha", runs: 40, wickets: 8 },
+        { player: "RAMKRISHNA", team: "Alpha", runs: 70, wickets: 4 },
+        { player: "SABIR", team: "Beta", runs: 15, wickets: 7 },
+        { player: "IMRAN", team: "Beta", runs: 80, wickets: 5 }
+      ],
+      "June 2025": [
+        { player: "VISHAL", team: "Alpha", runs: 150, wickets: 2 },
+        { player: "RISHABH", team: "Alpha", runs: 120, wickets: 0 },
+        { player: "ALOK", team: "Alpha", runs: 50, wickets: 10 },
+        { player: "RAMKRISHNA", team: "Alpha", runs: 80, wickets: 5 },
+        { player: "SABIR", team: "Beta", runs: 20, wickets: 8 },
+        { player: "IMRAN", team: "Beta", runs: 90, wickets: 6 }
+      ]
+    };
+
+    // Quote generator
+    const quotes = [
+      "Cricket is life, the rest is just details!",
+      "Hit hard, love soft!",
+      "Keep calm and play cricket!",
+      "Swing it like HCC!"
+    ];
+    function generateQuote() {
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("quote").innerText = quote;
+    }
+
+    // Display leaderboard
+    function displayLeaderboard() {
+      const period = document.getElementById("period-select").value;
+      const leaderboardData = leaderboardPeriods[period] || [];
+
+      // Top Runs
+      const topRuns = leaderboardData.sort((a, b) => b.runs - a.runs).slice(0, 3);
+      const runsTable = document.getElementById("top-runs-table");
+      runsTable.innerHTML = "";
+      topRuns.forEach(player => {
+        const row = document.createElement("tr");
+        row.className = "hover:bg-gray-100 transition";
+        row.innerHTML = `
+          <td class="p-2 sm:p-3">${player.player}</td>
+          <td class="p-2 sm:p-3">${player.team}</td>
+          <td class="p-2 sm:p-3">${player.runs}</td>
+        `;
+        runsTable.appendChild(row);
+      });
+
+      // Top Wickets
+      const topWickets = leaderboardData.sort((a, b) => b.wickets - a.wickets).slice(0, 3);
+      const wicketsTable = document.getElementById("top-wickets-table");
+      wicketsTable.innerHTML = "";
+      topWickets.forEach(player => {
+        const row = document.createElement("tr");
+        row.className = "hover:bg-gray-100 transition";
+        row.innerHTML = `
+          <td class="p-2 sm:p-3">${player.player}</td>
+          <td class="p-2 sm:p-3">${player.team}</td>
+          <td class="p-2 sm:p-3">${player.wickets}</td>
+        `;
+        wicketsTable.appendChild(row);
+      });
+    }
+
+    // Show player stats in modal
+    function showPlayerStats(playerName) {
+      const player = playerData[playerName];
+      if (player) {
+        const statsDiv = document.getElementById("player-stats");
+        statsDiv.innerHTML = `
+          <img src="${player.image}" alt="${player.name}" class="h-24 w-24 sm:h-32 sm:w-32 mx-auto rounded-full mb-4 object-cover">
+          <h3 class="text-lg sm:text-xl font-semibold">${player.name}</h3>
+          <p class="text-sm sm:text-base">Team: ${player.team}</p>
+          <p class="text-sm sm:text-base">Role: ${player.role}</p>
+          <p class="text-sm sm:text-base">Matches: ${player.matches}</p>
+          <p class="text-sm sm:text-base">Runs: ${player.runs}</p>
+          <p class="text-sm sm:text-base">Wickets: ${player.wickets}</p>
+        `;
+        document.getElementById("player-modal").style.display = "flex";
+        document.querySelector(".modal-content").focus();
+      }
+    }
+
+    // Close modal
+    function closeModal() {
+      document.getElementById("player-modal").style.display = "none";
+    }
+
+    // Formspree form submission
+    const form = document.getElementById("join-form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const spinner = document.getElementById("spinner");
+      const formMessage = document.getElementById("form-message");
+      spinner.style.display = "block";
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "Accept": "application/json"
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          spinner.style.display = "none";
+          formMessage.classList.remove("hidden");
+          form.reset();
+          setTimeout(() => {
+            formMessage.classList.add("hidden");
+          }, 3000);
+        } else {
+          throw new Error("Form submission failed");
+        }
+      })
+      .catch(error => {
+        spinner.style.display = "none";
+        formMessage.textContent = "Error submitting form. Please try again.";
+        formMessage.classList.remove("hidden", "text-green-600");
+        formMessage.classList.add("text-red-600");
+        setTimeout(() => {
+          formMessage.classList.add("hidden");
+          formMessage.classList.remove("text-red-600");
+          formMessage.classList.add("text-green-600");
+          formMessage.textContent = "Application submitted successfully!";
+        }, 3000);
+      });
+    });
+
+    // Mobile menu toggle
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Close modal on Esc key
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    // Initialize on page load
+    displayLeaderboard();
+  </script>
+</body>
+</html>
